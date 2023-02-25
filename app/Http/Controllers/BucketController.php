@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 
 class BucketController extends Controller
 {
-    public function add(Request $req, $tovar_id)
+    public function add(Request $req)
     {
+        $tovar_id = $req['tovar_id'];
+
         $bucket = session('bucket');
         if($bucket == null)
         {

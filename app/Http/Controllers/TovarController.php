@@ -10,9 +10,7 @@ class TovarController extends Controller
     public function index(Request $req, $tovar_id) {
 
         $tovar = Tovar::find($tovar_id);
-
-        session(['tovar' => $tovar]);
-
-        return view('tovar');
+        
+        return view('tovar', ['tovar' => $tovar]);
     }
 }

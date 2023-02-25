@@ -16,11 +16,12 @@
             </div>
             <div class="col-md-6">
                 <div class="">
-                    <img src="../img/{{ session('tovar')->img }}" alt="" class="img-fluid selected-tovar">
+                    <img src="../img/{{  $tovar->img }}" alt="" class="img-fluid selected-tovar">
                 </div>
             </div>
-            <form action="{{ route('addbucket', session('tovar')->id) }}" method="POST">
+            <form id="addbucket-form" action="{{ route('addbucket') }}" method="POST">
                 @csrf
+                <input type="hidden" name="tovar_id" value="{{ $tovar->id }}">
                 <button class="btn btn-primary">Добавить в корзину</button>
             </form>
         </div>
