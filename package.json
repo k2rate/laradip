@@ -1,4 +1,5 @@
 {
+    "name": "kvrcsvc-m1",
     "private": true,
     "scripts": {
         "dev": "vite",
