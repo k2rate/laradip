@@ -13,7 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('tovars', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            
+            $table->string('img');
+            $table->string('desc');
+            $table->integer('cost');
+            $table->string('country');
+            $table->string('model');
             $table->bigInteger('count')->unsigned();
         });
     }
@@ -25,8 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('tovars', function (Blueprint $table) {
-            $table->dropColumn('count')->unsigned();
-        });
+        Schema::dropIfExists('products');
     }
 };

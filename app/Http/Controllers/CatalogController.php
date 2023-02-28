@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Tovar;
+use App\Models\Product;
 
 class CatalogController extends Controller
 {
     public function index()
     {
-        $tovars = Tovar::all();
+        $products = Product::all();
 
-        session(['tovars' => $tovars]);
+        session(['products' => $products]);
 
         return view('catalog');
     }

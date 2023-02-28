@@ -30,11 +30,15 @@ Route::get('/where', function () {
     return view('where');
 })->name('where');
 
-Route::get('/tovar/{tovar_id}/', [App\Http\Controllers\TovarController::class, 'index'])->name('tovar');
+Route::get('/tovar/{tovar_id}/', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
 
-Route::post('/addbucket/{tovar_id}', [App\Http\Controllers\BucketController::class, 'add'])->name('addbucket');
+Route::post('/addbucket/{tovar_id}', [App\Http\Controllers\BucketController::class, 'add'])->name('bucket.add');
 
 Route::get('/bucket',[App\Http\Controllers\BucketController::class, 'index'])->name('bucket');
+
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
+Route::post('/admin/login', [App\Http\Controllers\AdminController::class, 'login'])->name('admin.login');
+
 
 /*
 

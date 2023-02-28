@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Tovar;
+use App\Models\Product;
 
-function getTovarCount($bucket, $tovar_id)
+function getproductCount($bucket, $product_id)
 {
     $counter = 0;
     for ($i = 0; $i != sizeof($bucket); $i++) {
-        if ($bucket[$i]->id == $tovar_id) {
+        if ($bucket[$i]->id == $product_id) {
             $counter++;
         }
     }
@@ -21,17 +21,17 @@ class BucketController extends Controller
 {
     public function ajaxAdd(Request $req)
     {
-        $tovar_id = $req['tovar_id'];
-        $tovar = Tovar::find($tovar_id);
+        $product_id = $req['product_id'];
+        $product = Product::find($product_id);
 
         $bucket = session('bucket', []);
-        $bucket_tovar_count = getTovarCount($bucket, $tovar_id);
+        $bucket_product_count = getproductCount($bucket, $product_id);
 
-        if ($bucket_tovar_count >= $tovar->count) {
+        if ($bucket_product_count >= $product->count) {
             return response()->json(['error' => 'На складе недостаточно товаров']);
         }
 
-        array_push($bucket, $tovar);
+        array_push($bucket, $product);
         session(['bucket' => $bucket]);
 
         return response()->json(['error' => 'success']);
