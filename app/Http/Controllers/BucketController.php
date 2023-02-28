@@ -43,6 +43,12 @@ class BucketController extends Controller
         if ($arr == null)
             $arr = [];
 
-        return view('bucket', ['bucket' => $arr]);
+        $products = [];
+        foreach ($arr as $product_id)
+        {
+            array_push($products, Product::find($product_id));
+        }
+
+        return view('bucket', ['products' => $products]);
     }
 }

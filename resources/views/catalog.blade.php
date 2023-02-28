@@ -7,16 +7,15 @@
         <p>Наши товары: </p>
 
         <div class="row">
-            @foreach(session('tovars') as $tovar)
-
+            @foreach($products as $product)
             
             <div class="col-md-4">
                 <div class="tovar">
-                    <img src="img/{{ $tovar->img }}" alt="" class="img-fluid">
-                    <a href="tovar/{{ $tovar->id }}" class="btn btn-primary tovbtn">Заказать</a>
+                    <img src="img/{{ $product->img }}" alt="" class="img-fluid">
+                    <a href="tovar/{{ $product->id }}" class="btn btn-primary tovbtn">Заказать</a>
                 </div>
             </div>
-
+            
             @endforeach
         </div>
     </div>

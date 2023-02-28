@@ -10,9 +10,7 @@ class CatalogController extends Controller
     public function index()
     {
         $products = Product::all();
-
-        session(['products' => $products]);
-
-        return view('catalog');
+        
+        return view('catalog', ['products' => $products]);
     }
 }
