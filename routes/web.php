@@ -34,17 +34,19 @@ Route::get('/tovar/{tovar_id}/', [App\Http\Controllers\ProductController::class,
 
 Route::post('/addbucket/{tovar_id}', [App\Http\Controllers\BucketController::class, 'add'])->name('bucket.add');
 
-Route::get('/bucket',[App\Http\Controllers\BucketController::class, 'index'])->name('bucket');
+Route::get('/bucket', [App\Http\Controllers\BucketController::class, 'index'])->name('bucket');
 
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
-Route::post('/admin/login', [App\Http\Controllers\AdminController::class, 'login'])->name('admin.login');
+Route::middleware([App\Http\Middleware\AdminCheck::class])->group(function () {
+
+    Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
+    Route::post('/admin/login', [App\Http\Controllers\AdminController::class, 'login'])->name('admin.login');
+    Route::post('/admin/logout', [App\Http\Controllers\AdminController::class, 'logout'])->name('admin.logout');
+});
+
 
 
 /*
-
-
 Route::get('/home', function () {
-    return view('main');
+return view('main');
 })->name('home');
-
 */

@@ -16,6 +16,12 @@ class AdminController extends Controller
         return redirect()->route('admin');
     }
 
+    public function logout()
+    {
+        session(['isAdmin' => false]);
+        return redirect()->route('admin');
+    }
+
     public function index()
     {
         $isAdmin = session('isAdmin', false);
