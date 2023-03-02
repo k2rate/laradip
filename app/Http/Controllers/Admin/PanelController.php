@@ -22,6 +22,12 @@ class PanelController extends Controller
         return view('admin.panel', compact('products'));
     }
     
+    public function viewProduct(Request $req, $productId)
+    {
+        $product = Product::find($productId);
+        return view('admin.product', compact('product'));
+    }
+
     public function storeProduct(StoreProductRequest $req)
     {
         $data = $req->validated();

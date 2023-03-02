@@ -30,9 +30,9 @@ Route::get('/where', function () {
     return view('where');
 })->name('where');
 
-Route::get('/tovar/{tovar_id}/', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
+Route::get('/tovar/{product_id}/', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
 
-Route::post('/addbucket/{tovar_id}', [App\Http\Controllers\BucketController::class, 'add'])->name('bucket.add');
+Route::post('/addbucket/{product_id}', [App\Http\Controllers\BucketController::class, 'add'])->name('bucket.add');
 
 Route::get('/bucket', [App\Http\Controllers\BucketController::class, 'index'])->name('bucket');
 
@@ -44,6 +44,7 @@ Route::middleware([App\Http\Middleware\Admin\Check::class])->group(function () {
 
     Route::get('/admin/panel', [App\Http\Controllers\Admin\PanelController::class, 'index'])->name('admin.panel');
     Route::post('/admin/storeProduct', [App\Http\Controllers\Admin\PanelController::class, 'storeProduct'])->name('admin.storeProduct');
+    Route::get('/admin/product/{product_id}', [App\Http\Controllers\Admin\PanelController::class, 'viewProduct'])->name('admin.product');
 });
 
 

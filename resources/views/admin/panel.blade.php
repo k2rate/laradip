@@ -7,16 +7,17 @@
         @if ($products->count() == 0)
             <h3>Товаров не зарегистрировано</h3>
         @else
-            @foreach ($products as $product)
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="tovar">
+            <div class="row">
+                @foreach ($products as $product)
+                    <div class="col-md-3">
+                        <div class="product-preview">
                             <h4>{{ $product->name }}</h4>
                             <img src="{{ asset($product->image) }}" alt="" class="img-fluid">
+                            <a href="{{ route('admin.product', $product->id) }}">Редактировать</a>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         @endif
 
         <form action="{{ route('admin.storeProduct') }}" method="POST" enctype="multipart/form-data">

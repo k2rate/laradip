@@ -1,0 +1,67 @@
+
+.header {
+    display: flex;
+    border-bottom: solid 1px black;
+    padding: 20px 0;
+    justify-content: space-around;
+}
+
+.header__left {}
+
+.header__right {}
+
+.header__list {
+    list-style: none;
+    display: flex;
+    margin: 0;
+}
+
+.header__list li {
+    display: block;
+    padding: 0 5px;
+}
+
+.header__list a {
+    text-decoration: none;
+}
+
+.tovar_img {
+    display: block;
+}
+
+.map {
+    margin: 0 auto;
+    margin-top: 70px;
+}
+
+.map img {
+    
+    display: block;
+    margin: 0 auto;
+}
+
+.product {
+    padding: 20px
+}
+
+.tovbtn {
+    width: 100%;
+    border-radius: 0%;
+}
+
+.selected-tovar {
+    display: block;
+    margin: 0 auto;
+}
+
+.tovar-desc {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.tovar-desc p {
+    width: 100%;
+}
