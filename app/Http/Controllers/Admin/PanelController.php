@@ -13,9 +13,13 @@ class PanelController extends Controller
 {
     public function index()
     {
+        $products = Product::all();
+
+
+
         // Storage::disk('local')->put('example.txt', 'Contents');
 
-        return view('admin.panel');
+        return view('admin.panel', compact('products'));
     }
     
     public function storeProduct(StoreProductRequest $req)

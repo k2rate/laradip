@@ -2,6 +2,23 @@
 
 @section('content')
     <div class="container">
+
+        <h2>Редактирование товаров</h2>
+        @if ($products->count() == 0)
+            <h3>Товаров не зарегистрировано</h3>
+        @else
+            @foreach ($products as $product)
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="tovar">
+                            <h4>{{ $product->name }}</h4>
+                            <img src="{{ asset($product->image) }}" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        @endif
+
         <form action="{{ route('admin.storeProduct') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
@@ -9,7 +26,8 @@
             <div class="mb-3">
 
                 <label for="name" class="col-sm-2 col-form-label">Имя товара</label>
-                <input id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror">
+                <input id="name" name="name" type="text"
+                    class="form-control @error('name') is-invalid @enderror">
                 @error('name')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                 @enderror
