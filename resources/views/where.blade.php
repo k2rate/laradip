@@ -5,7 +5,7 @@
     <h1>Где нас найти</h1>
     <div class="map">
         <p class="text-center fs-2">Мы здесь</p>
-        <img src="./img/map.jpg" alt="" width=700>
+        <img src="{{ asset('img/map.jpg') }}" alt="" width=700>
     </div>
     
     <div class="contacts mt-5">

@@ -36,11 +36,14 @@ Route::post('/addbucket/{tovar_id}', [App\Http\Controllers\BucketController::cla
 
 Route::get('/bucket', [App\Http\Controllers\BucketController::class, 'index'])->name('bucket');
 
-Route::middleware([App\Http\Middleware\AdminCheck::class])->group(function () {
+Route::get('/admin', [App\Http\Controllers\Admin\LoginController::class, 'index'])->name('admin');
+Route::post('/admin/login', [App\Http\Controllers\Admin\LoginController::class, 'login'])->name('admin.login');
 
-    Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
-    Route::post('/admin/login', [App\Http\Controllers\AdminController::class, 'login'])->name('admin.login');
-    Route::post('/admin/logout', [App\Http\Controllers\AdminController::class, 'logout'])->name('admin.logout');
+Route::middleware([App\Http\Middleware\Admin\Check::class])->group(function () {
+    Route::post('/admin/logout', [App\Http\Controllers\Admin\LoginController::class, 'logout'])->name('admin.logout');
+
+    Route::get('/admin/panel', [App\Http\Controllers\Admin\PanelController::class, 'index'])->name('admin.panel');
+    Route::post('/admin/storeProduct', [App\Http\Controllers\Admin\PanelController::class, 'storeProduct'])->name('admin.storeProduct');
 });
 
 

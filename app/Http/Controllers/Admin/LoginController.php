@@ -1,19 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\AdminLoginRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\LoginRequest;
 
-class AdminController extends Controller
+class LoginController extends Controller
 {
-    public function login(AdminLoginRequest $request)
+    public function login(LoginRequest $request)
     {
         if ($request['login'] == 'admin' && $request['password'] == 'admin77')
+        {
             session(['isAdmin' => true]);
-
-        return redirect()->route('admin');
+            return redirect()->route('admin.panel');
+        }
+        else
+        {
+            return redirect()->route('admin');
+        }
     }
 
     public function logout()
@@ -26,7 +31,7 @@ class AdminController extends Controller
     {
         $isAdmin = session('isAdmin', false);
         if ($isAdmin)
-            return view('admin.panel');
+            return redirect()->route('admin.panel');
 
         return view('admin.login');
     }

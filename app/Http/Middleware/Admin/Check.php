@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Http\Middleware\Admin;
 
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
-class AdminCheck
+class Check
 {
     /**
      * Handle an incoming request.
@@ -18,8 +18,11 @@ class AdminCheck
     public function handle(Request $request, Closure $next)
     {
         $isAdmin = session('isAdmin', false);
-        View::share('isAdmin', $isAdmin);
+        if ($isAdmin) {
+            View::share('isAdmin', $isAdmin);
+            return $next($request);
+        }
 
-        return $next($request);
+        return redirect('admin');
     }
 }

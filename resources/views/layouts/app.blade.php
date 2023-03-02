@@ -69,8 +69,8 @@
         </main>
     </div>
 
-    <script src="/public/js/jquery.js"></script>
-    <script src="/public/js/addbucket.js"></script>
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/addbucket.js') }}"></script>
 
 </body>
 

@@ -11,7 +11,7 @@
             
             <div class="col-md-4">
                 <div class="tovar">
-                    <img src="img/{{ $product->img }}" alt="" class="img-fluid">
+                    <img src="{{ asset($product->image) }}" alt="" class="img-fluid">
                     <a href="tovar/{{ $product->id }}" class="btn btn-primary tovbtn">Заказать</a>
                 </div>
             </div>
