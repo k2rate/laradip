@@ -32,7 +32,7 @@ Route::get('/where', function () {
 
 Route::get('/tovar/{product_id}/', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
 
-Route::post('/addbucket/{product_id}', [App\Http\Controllers\BucketController::class, 'add'])->name('bucket.add');
+Route::post('/addbucket', [App\Http\Controllers\BucketController::class, 'ajaxAdd'])->name('bucket.add');
 
 Route::get('/bucket', [App\Http\Controllers\BucketController::class, 'index'])->name('bucket');
 
@@ -45,6 +45,8 @@ Route::middleware([App\Http\Middleware\Admin\Check::class])->group(function () {
     Route::get('/admin/panel', [App\Http\Controllers\Admin\PanelController::class, 'index'])->name('admin.panel');
     Route::post('/admin/storeProduct', [App\Http\Controllers\Admin\PanelController::class, 'storeProduct'])->name('admin.storeProduct');
     Route::get('/admin/product/{product_id}', [App\Http\Controllers\Admin\PanelController::class, 'viewProduct'])->name('admin.product');
+    Route::post('/admin/editProduct', [App\Http\Controllers\Admin\PanelController::class, 'editProduct'])->name('admin.editProduct');
+    Route::post('/admin/editProductImage', [App\Http\Controllers\Admin\PanelController::class, 'editProductImage'])->name('admin.editProductImage');
 });
 
 
