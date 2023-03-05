@@ -6,7 +6,9 @@
 
         <div class="row">
 
-            @foreach ($products as $key => $product)
+            @foreach ($bucket as $key => $elem)
+                @php($product = $elem['object'])
+
                 <div class="col-md-3" id="card-{{ $key }}">
                     <div class="card" style="width: 18rem;">
                         <img class="card-img-top" src="{{ $product->image }}" alt="Card image cap">
@@ -14,7 +16,7 @@
                             <h5 class="card-title">{{ $product->name }}</h5>
                             <p class="card-text">{{ $product->description }}</p>
                             <p class="card-text">Цена: {{ $product->cost }}</p>
-
+                            <p class="card-text">В корзине: {{ $elem['count'] }}</p>
                             <form class="ajax-form-remove" action="{{ route('bucket.remove') }}" method="POST" index={{ $key }}>
                                 @csrf
                                 <input type="hidden" name="index", value="{{ $key }}">

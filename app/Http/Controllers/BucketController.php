@@ -11,13 +11,12 @@ use App\Http\Requests\BucketRemoveRequest;
 
 function getProductCount($bucket, $product_id)
 {
-    $counter = 0;
-    foreach ($bucket as $product) {
-        if ($product->id == $product_id)
-            $counter++;
+    foreach ($bucket as $bucketElement) {
+        if ($bucketElement['object']->id == $product_id)
+            return $bucketElement['count'];
     }
 
-    return $counter;
+    return 0;
 }
 
 class BucketController extends Controller
@@ -36,9 +35,20 @@ class BucketController extends Controller
             return response()->json(['error' => 'На складе недостаточно товаров']);
         }
 
-        array_push($bucket, $product);
-        session(['bucket' => $bucket]);
+        if ($bucket_product_count) {
+            foreach ($bucket as $key => $obj) {
+                if($obj['object']->id == $product_id) {
+                    $bucket[$key]['count']++;
+                    break;
+                }
+            }
+        }
+        else {
+            array_push($bucket, ['object' => $product, 'count' => 1]);
+        }
 
+        
+        session(compact('bucket'));
         return response()->json(['error' => 'success']);
     }
 
@@ -52,18 +62,23 @@ class BucketController extends Controller
 
         foreach ($bucket as $key => $obj) {
             if ($data['index'] == $key) {
-                unset($bucket[$key]);
-                break;          
+                if ($obj['count'] != 0) {
+                    $bucket[$key]['count']--;
+                }
+                if ($obj['count'] == 0) {
+                    unset($bucket[$key]);
+                }
+                break;
             }
         }
-        
+
         session(['bucket' => $bucket]);
         return response()->json();
     }
 
     public function index()
     {
-        $products = session('bucket', []);
-        return view('bucket', ['products' => $products]);
+        $bucket = session('bucket', []);
+        return view('bucket', compact('bucket'));
     }
 }
