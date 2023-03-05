@@ -42,4 +42,9 @@ class LoginController extends Controller
     {
         return 'login';
     }
+
+    public function logout () {
+        auth()->logout();
+        return redirect()->route('about');
+    }
 }
