@@ -65,14 +65,14 @@ class BucketController extends Controller
                 if ($obj['count'] != 0) {
                     $bucket[$key]['count']--;
                 }
-                if ($obj['count'] == 0) {
+                if ($bucket[$key]['count'] == 0) {
                     unset($bucket[$key]);
                 }
                 break;
             }
         }
 
-        session(['bucket' => $bucket]);
+        session(compact('bucket'));
         return response()->json();
     }
 
