@@ -17,7 +17,8 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $product->name }}</h5>
                             <p class="card-text">{{ $product->description }}</p>
-
+                            <p class="card-text">Количество: {{ $product->count }}</p>
+                            <p class="card-text">Цена: {{ $product->cost }}</p>
                             <form class="ajax-form" action="{{ route('bucket.add') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="id", value="{{ $product->id }}">
