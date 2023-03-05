@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
-function getproductCount($bucket, $product_id)
+
+use App\Http\Requests\BucketAddRequest;
+use App\Http\Requests\BucketRemoveRequest;
+
+function getProductCount($bucket, $product_id)
 {
     $counter = 0;
-    for ($i = 0; $i != sizeof($bucket); $i++) {
-        if ($bucket[$i]->id == $product_id) {
+    foreach ($bucket as $product) {
+        if ($product->id == $product_id)
             $counter++;
-        }
     }
 
     return $counter;
@@ -19,13 +22,15 @@ function getproductCount($bucket, $product_id)
 
 class BucketController extends Controller
 {
-    public function ajaxAdd(Request $req)
+    public function ajaxAdd(BucketAddRequest $req)
     {
-        $product_id = $req['product_id'];
+        $data = $req->validated();
+
+        $product_id = $data['id'];
         $product = Product::find($product_id);
 
         $bucket = session('bucket', []);
-        $bucket_product_count = getproductCount($bucket, $product_id);
+        $bucket_product_count = getProductCount($bucket, $product_id);
 
         if ($bucket_product_count >= $product->count) {
             return response()->json(['error' => 'На складе недостаточно товаров']);
@@ -37,18 +42,28 @@ class BucketController extends Controller
         return response()->json(['error' => 'success']);
     }
 
+    public function ajaxRemove(BucketRemoveRequest $req)
+    {
+        $data = $req->validated();
+
+        $bucket = session('bucket', null);
+        if ($bucket == null)
+            return response()->json();
+
+        foreach ($bucket as $key => $obj) {
+            if ($data['index'] == $key) {
+                unset($bucket[$key]);
+                break;          
+            }
+        }
+        
+        session(['bucket' => $bucket]);
+        return response()->json();
+    }
+
     public function index()
     {
-        $arr = session('bucket');
-        if ($arr == null)
-            $arr = [];
-
-        $products = [];
-        foreach ($arr as $product_id)
-        {
-            array_push($products, Product::find($product_id));
-        }
-
+        $products = session('bucket', []);
         return view('bucket', ['products' => $products]);
     }
 }

@@ -4,19 +4,30 @@
     <div class="container">
         <h1>Каталог</h1>
 
+        <div class="state">
+        </div>
+
         <p>Наши товары: </p>
 
         <div class="row">
-            @foreach($products as $product)
-            
-            <div class="col-md-4">
-                <div class="tovar">
-                    <img src="{{ asset($product->image) }}" alt="" class="img-fluid">
-                    <a href="tovar/{{ $product->id }}" class="btn btn-primary tovbtn">Заказать</a>
+            @foreach ($products as $product)
+                <div class="col-md-4">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="{{ $product->image }}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $product->name }}</h5>
+                            <p class="card-text">{{ $product->description }}</p>
+
+                            <form class="ajax-form" action="{{ route('bucket.add') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="id", value="{{ $product->id }}">
+                                <button type="submit" class="btn btn-primary product-btn">В корзину</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
             @endforeach
+
         </div>
     </div>
 @endsection

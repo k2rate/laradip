@@ -33,6 +33,7 @@ Route::get('/where', function () {
 Route::get('/tovar/{product_id}/', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
 
 Route::post('/addbucket', [App\Http\Controllers\BucketController::class, 'ajaxAdd'])->name('bucket.add');
+Route::post('/removebucket', [App\Http\Controllers\BucketController::class, 'ajaxRemove'])->name('bucket.remove');
 
 Route::get('/bucket', [App\Http\Controllers\BucketController::class, 'index'])->name('bucket');
 
