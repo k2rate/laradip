@@ -48,6 +48,7 @@ Route::middleware([App\Http\Middleware\Admin\Check::class])->group(function () {
     Route::get('/admin/product/{product_id}', [App\Http\Controllers\Admin\PanelController::class, 'viewProduct'])->name('admin.product');
     Route::post('/admin/editProduct', [App\Http\Controllers\Admin\PanelController::class, 'editProduct'])->name('admin.editProduct');
     Route::post('/admin/editProductImage', [App\Http\Controllers\Admin\PanelController::class, 'editProductImage'])->name('admin.editProductImage');
+    Route::post('/admin/deleteProduct', [App\Http\Controllers\Admin\PanelController::class, 'deleteProduct'])->name('admin.deleteProduct');
 });
 
 

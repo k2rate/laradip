@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
                  
             $table->string('name');
-            $table->string('category');
+            $table->foreignId('category_id');
             $table->string('description');
             $table->string('country');
             $table->string('image');

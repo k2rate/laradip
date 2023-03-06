@@ -8,6 +8,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreProductRequest;
 use App\Http\Requests\Admin\EditProductRequest;
 use App\Http\Requests\Admin\EditProductImageRequest;
+use App\Http\Requests\Admin\DeleteProductRequest;
+
+use App\Http\Requests\Admin\AddCategoryRequest;
+use App\Http\Requests\Admin\DeleteCategoryRequest;
 
 use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
@@ -71,22 +75,25 @@ class PanelController extends Controller
 
         $model = Product::firstOrCreate($data);
 
-        // $url = Storage::url($data['image']);
-        // dd($data['image']);
+        return redirect()->route('admin.panel');
+    }
 
-        /*
-        'name' => 'required|string',
-        'category' => 'required|string',
-        'cost' => 'required|integer',
-        'count' => 'required|integer',
-        'country' => 'required|string',
-        'year' => 'required|integer',
-        'model' => 'required|string',
-        'image' => 'required|file'
-        */
+    public function deleteProduct(DeleteProductRequest $req)
+    {
+        $data = $req->validated();
+        Product::find($data['id'])->delete();
 
+        return redirect()->route('admin.panel');
+    }
 
+    public function addCategory(AddCategoryRequest $req)
+    {
 
+        return redirect()->route('admin.panel');
+    }
+
+    public function removeCategory(RemoveCategoryRequest $req)
+    {
 
         return redirect()->route('admin.panel');
     }

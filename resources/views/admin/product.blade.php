@@ -5,12 +5,21 @@
 
         <img src="{{ asset($product->image) }}" alt="" class="img-fluid" style="max-height: 300px">
 
+
+        <h3>Редактирование товара</h3>
+
+        <form action="{{ route('admin.deleteProduct') }}" method="POST">
+            @csrf
+            <input type="hidden" name="id" value="{{ $product->id }}">
+            <button type="submit" class="btn btn-danger">Удалить товар</button>
+        </form>
+
         <form action="{{ route('admin.editProduct') }}" method="POST">
             @csrf
 
             <input type="hidden" name="id" value="{{ $product->id }}">
 
-            <h3>Редактирование товара</h3>
+
             <div class="mb-3">
 
 
