@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@php
+use App\Models\Category;
+@endphp
+
 @section('content')
     <div class="container">
         <h1>Корзина</h1>
@@ -17,6 +21,7 @@
                         <img class="card-img-top" src="{{ $product->image }}" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">{{ $product->name }}</h5>
+                            <p class="card-text">Категория: {{ Category::find($product->category_id)->name }}</p>
                             <p class="card-text">{{ $product->description }}</p>
                             <p class="card-text">Цена: {{ $product->cost }}</p>
                             <p class="card-text">В корзине: <span id="product-count">{{ $elem['count'] }}</span></p>

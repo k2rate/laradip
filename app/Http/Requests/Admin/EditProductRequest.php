@@ -26,7 +26,7 @@ class EditProductRequest extends FormRequest
         return [
             'id' => 'required|integer',
             'name' => 'required|string',
-            'category' => 'required|string',
+            'category_id' => 'required|integer',
             'description' => 'required|string',
             'cost' => 'required|integer',
             'count' => 'required|integer',

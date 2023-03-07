@@ -49,6 +49,8 @@ Route::middleware([App\Http\Middleware\Admin\Check::class])->group(function () {
     Route::post('/admin/editProduct', [App\Http\Controllers\Admin\PanelController::class, 'editProduct'])->name('admin.editProduct');
     Route::post('/admin/editProductImage', [App\Http\Controllers\Admin\PanelController::class, 'editProductImage'])->name('admin.editProductImage');
     Route::post('/admin/deleteProduct', [App\Http\Controllers\Admin\PanelController::class, 'deleteProduct'])->name('admin.deleteProduct');
+    Route::post('/admin/addCategory', [App\Http\Controllers\Admin\PanelController::class, 'addCategory'])->name('admin.addCategory');
+    Route::post('/admin/deleteCategory', [App\Http\Controllers\Admin\PanelController::class, 'deleteCategory'])->name('admin.deleteCategory');
 });
 
 

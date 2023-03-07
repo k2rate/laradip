@@ -13,7 +13,7 @@ class LoginRequest extends FormRequest
      */
     public function authorize()
     {
-        return !session('isAdmin', false);
+        return true;
     }
 
     /**

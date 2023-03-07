@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@php
+    use App\Models\Category;
+@endphp
+
 @section('content')
     <div class="container">
 
@@ -19,11 +23,7 @@
 
             <input type="hidden" name="id" value="{{ $product->id }}">
 
-
             <div class="mb-3">
-
-
-
                 <label for="name" class="col-sm-2 col-form-label">Имя товара</label>
                 <input id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror"
                     value="{{ $product->name }}">
@@ -31,12 +31,18 @@
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                 @enderror
 
-                <label for="category" class="col-sm-2 col-form-label">Категория</label>
-                <input id="category" name="category" type="text"
-                    class="form-control @error('category') is-invalid @enderror" value="{{ $product->category }}">
-                @error('category')
+                <label for="category_id" class="col-sm-2 col-form-label">Категория</label>
+                <select id="category_id" class="form-select @error('category_id') is-invalid @enderror" name="category_id">
+                    <option @if ($product->category_id == 0) selected @endif value="0">Выбрать категорию</option>
+                    @foreach ($categories as $category)
+                        <option @if ($product->category_id == $category->id) selected @endif value="{{ $category->id }}">
+                            {{ $category->name }}</option>
+                    @endforeach
+                </select>
+                @error('category_id')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                 @enderror
+
 
                 <label for="description" class="col-sm-2 col-form-label">Описание</label>
                 <input id="description" name="description" type="text"
@@ -84,9 +90,9 @@
 
             <input type="hidden" name="id" value="{{ $product->id }}">
 
-
             <label for="image" class="form-label">Картинка</label>
-            <input id="image" name="image" type="file" class="form-control @error('image') is-invalid @enderror">
+            <input id="image" name="image" type="file"
+                class="form-control @error('image') is-invalid @enderror">
             @error('image')
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
             @enderror

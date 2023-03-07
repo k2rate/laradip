@@ -15,24 +15,24 @@ use App\Http\Requests\Admin\DeleteCategoryRequest;
 
 use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
+use App\Models\Category;
 
 class PanelController extends Controller
 {
     public function index()
     {
         $products = Product::all();
+        $categories = Category::all();
 
-
-
-        // Storage::disk('local')->put('example.txt', 'Contents');
-
-        return view('admin.panel', compact('products'));
+        return view('admin.panel', compact('products', 'categories'));
     }
 
     public function viewProduct(Request $req, $productId)
     {
         $product = Product::find($productId);
-        return view('admin.product', compact('product'));
+        $categories = Category::all();
+
+        return view('admin.product', compact('product', 'categories'));
     }
 
     public function editProduct(EditProductRequest $req)
@@ -42,7 +42,7 @@ class PanelController extends Controller
         $product = Product::find($data['id']);
         if ($product) {
             $product->name = $data['name'];
-            $product->category = $data['category'];
+            $product->category_id = $data['category_id'];
             $product->description = $data['description'];
             $product->cost = $data['cost'];
             $product->count = $data['count'];
@@ -88,13 +88,16 @@ class PanelController extends Controller
 
     public function addCategory(AddCategoryRequest $req)
     {
-
+        $data = $req->validated();
+        Category::firstOrCreate($data);
         return redirect()->route('admin.panel');
     }
 
-    public function removeCategory(RemoveCategoryRequest $req)
+    public function deleteCategory(DeleteCategoryRequest $req)
     {
-
+        $data = $req->validated();
+        
+        Category::find($data['id'])->delete();
         return redirect()->route('admin.panel');
     }
 }

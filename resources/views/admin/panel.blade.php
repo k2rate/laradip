@@ -5,7 +5,34 @@
 
         <h2>Добавление категории</h2>
 
-        
+        <form action="{{ route('admin.addCategory') }}" method="POST">
+            @csrf
+            <label for="name" class="col-sm-2 col-form-label">Название</label>
+            <input id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror">
+            @error('name')
+                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+            @enderror
+            <button class="btn btn-primary mt-1" type="submit">Добавить категорию</button>
+        </form>
+
+        <hr>
+
+        <h2>Категории</h2>
+
+        <div class="row">
+            @foreach ($categories as $category)
+                <div class="col-md-4">
+                    <h5 class="mt-1">{{ $category->name }}</h5>
+                    <form action="{{ route('admin.deleteCategory') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $category->id }}">
+                        <button class="btn btn-danger" type="submit">Удалить категорию</button>
+                    </form>
+                </div>
+            @endforeach
+        </div>
+
+        <hr>
 
         <h2>Редактирование товаров</h2>
         @if ($products->count() == 0)
@@ -14,15 +41,19 @@
             <div class="row">
                 @foreach ($products as $product)
                     <div class="col-md-3">
-                        <div class="product-preview">
-                            <h4>{{ $product->name }}</h4>
-                            <img src="{{ asset($product->image) }}" alt="" class="img-fluid">
-                            <a href="{{ route('admin.product', $product->id) }}">Редактировать</a>
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="{{ asset($product->image) }}" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $product->name }}</h5>
+                                <a class="btn btn-primary" href="{{ route('admin.product', $product->id) }}">Редактировать</a>
+                            </div>
                         </div>
                     </div>
                 @endforeach
-            </div>
+            </div>  
         @endif
+
+        <hr>
 
         <form action="{{ route('admin.storeProduct') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -37,10 +68,14 @@
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                 @enderror
 
-                <label for="category" class="col-sm-2 col-form-label">Категория</label>
-                <input id="category" name="category" type="text"
-                    class="form-control @error('category') is-invalid @enderror">
-                @error('category')
+                <label for="category_id" class="col-sm-2 col-form-label">Категория</label>
+                <select id="category_id" class="form-select @error('category_id') is-invalid @enderror" name="category_id">
+                    <option selected>Выбрать категорию</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach           
+                </select>
+                @error('category_id')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                 @enderror
 
