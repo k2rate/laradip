@@ -20,17 +20,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
-
+Route::get('/about',  [App\Http\Controllers\AboutController::class, 'index'])->name('about');
 Route::get('/catalog', [App\Http\Controllers\CatalogController::class, 'index'])->name('catalog');
 
-Route::get('/where', function () {
-    return view('where');
-})->name('where');
+Route::view('/where', 'where')->name('where');
 
-Route::get('/tovar/{product_id}/', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
+Route::get('/product/{product_id}/', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
 
 Route::post('/addbucket', [App\Http\Controllers\BucketController::class, 'ajaxAdd'])->name('bucket.add');
 Route::post('/removebucket', [App\Http\Controllers\BucketController::class, 'ajaxRemove'])->name('bucket.remove');
