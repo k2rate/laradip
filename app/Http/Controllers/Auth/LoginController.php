@@ -45,6 +45,8 @@ class LoginController extends Controller
 
     public function logout () {
         auth()->logout();
+        session(['bucket' => []]);
+
         return redirect()->route('about');
     }
 }
