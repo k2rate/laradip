@@ -14,6 +14,7 @@
         <p>Наши товары: </p>
 
         <form action="{{ route('catalog') }}" method="GET" class="py-1">
+            <input type="hidden" name="sort_type" value="{{ $sort_type }}">
             <select id="category_id" class="my-1 form-select @error('category_id') is-invalid @enderror" name="category_id">
                 <option @if ($category_id == 0) selected @endif value="0">Выбрать категорию</option>
                 @foreach ($categories as $category)
@@ -22,6 +23,23 @@
                 @endforeach
             </select>
             @error('category_id')
+                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+            @enderror
+
+            <button type="submit" class="btn btn-primary">Применить</button>
+        </form>
+
+        <br>
+
+        <form action="{{ route('catalog') }}" method="GET" class="py-1">
+            <input type="hidden" name="category_id" value="{{ $category_id }}">
+            <select id="sort_type" class="my-1 form-select @error('sort_type') is-invalid @enderror" name="sort_type">
+                <option @if ($sort_type == 'default') selected @endif value="default">Сортировать</option>
+                <option @if ($sort_type == 'cost') selected @endif value="cost">По цене</option>
+                <option @if ($sort_type == 'year') selected @endif value="year">По году</option>
+                <option @if ($sort_type == 'name') selected @endif value="name">По наименованию</option>
+            </select>
+            @error('sort_type')
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
             @enderror
 
