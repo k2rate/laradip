@@ -50,6 +50,8 @@
             <button type="submit" class="btn btn-primary">Применить</button>
         </form>
 
+        <br>
+
         <form action="{{ route('catalog') }}" method="GET" class="py-1">
             <input type="hidden" name="category_id" value="{{ $category_id }}">
             <input type="hidden" name="sort_type" value="{{ $sort_type }}">
