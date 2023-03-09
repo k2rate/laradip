@@ -15,6 +15,8 @@
 
         <form action="{{ route('catalog') }}" method="GET" class="py-1">
             <input type="hidden" name="sort_type" value="{{ $sort_type }}">
+            <input type="hidden" name="order" value="{{ $order }}">
+
             <select id="category_id" class="my-1 form-select @error('category_id') is-invalid @enderror" name="category_id">
                 <option @if ($category_id == 0) selected @endif value="0">Выбрать категорию</option>
                 @foreach ($categories as $category)
@@ -33,6 +35,8 @@
 
         <form action="{{ route('catalog') }}" method="GET" class="py-1">
             <input type="hidden" name="category_id" value="{{ $category_id }}">
+            <input type="hidden" name="order" value="{{ $order }}">
+
             <select id="sort_type" class="my-1 form-select @error('sort_type') is-invalid @enderror" name="sort_type">
                 <option @if ($sort_type == 'default') selected @endif value="default">Сортировать</option>
                 <option @if ($sort_type == 'cost') selected @endif value="cost">По цене</option>
@@ -40,6 +44,21 @@
                 <option @if ($sort_type == 'name') selected @endif value="name">По наименованию</option>
             </select>
             @error('sort_type')
+                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+            @enderror
+
+            <button type="submit" class="btn btn-primary">Применить</button>
+        </form>
+
+        <form action="{{ route('catalog') }}" method="GET" class="py-1">
+            <input type="hidden" name="category_id" value="{{ $category_id }}">
+            <input type="hidden" name="sort_type" value="{{ $sort_type }}">
+
+            <select id="order" class="my-1 form-select @error('order') is-invalid @enderror" name="order">
+                <option @if ($order == 'desc') selected @endif value="desc">По возрастанию</option>
+                <option @if ($order == 'asc') selected @endif value="asc">По убыванию</option>
+            </select>
+            @error('order')
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
             @enderror
 

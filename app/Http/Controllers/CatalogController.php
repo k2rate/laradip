@@ -20,6 +20,10 @@ class CatalogController extends Controller
 
         $products = null;
 
+        $order = $req['order'];
+        if($order == null)
+            $order = 'asc';
+
         if ($category_id != 0)
         {
             if($sort_type == 'default')
@@ -28,15 +32,15 @@ class CatalogController extends Controller
             }
             else if ($sort_type == 'cost')
             {
-                $products = Product::where('category_id', $category_id)->orderBy('cost')->get();
+                $products = Product::where('category_id', $category_id)->orderBy('cost', $order)->get();
             }
             else if ($sort_type == 'name')
             {
-                $products = Product::where('category_id', $category_id)->orderBy('name')->get();
+                $products = Product::where('category_id', $category_id)->orderBy('name', $order)->get();
             }
             else if ($sort_type == 'year')
             {
-                $products = Product::where('category_id', $category_id)->orderBy('year')->get();
+                $products = Product::where('category_id', $category_id)->orderBy('year', $order)->get();
             }
         }
         else
@@ -47,21 +51,21 @@ class CatalogController extends Controller
             }
             else if ($sort_type == 'cost')
             {
-                $products = Product::orderBy('cost')->get();
+                $products = Product::orderBy('cost', $order)->get();
             }
             else if ($sort_type == 'name')
             {
-                $products = Product::orderBy('name')->get();
+                $products = Product::orderBy('name', $order)->get();
             }
             else if ($sort_type == 'year')
             {
-                $products = Product::orderBy('year')->get();
+                $products = Product::orderBy('year', $order)->get();
             }
         }
 
 
         $categories = Category::all();
 
-        return view('catalog', compact('products', 'categories', 'category_id', 'sort_type'));
+        return view('catalog', compact('products', 'categories', 'category_id', 'sort_type', 'order'));
     }
 }
