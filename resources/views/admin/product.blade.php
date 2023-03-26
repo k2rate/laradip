@@ -64,8 +64,9 @@
                 @error('count')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                 @enderror
-
-                <label for="country" class="col-sm-2 col-form-label">Страна</label>
+                
+                <!--
+                    <label for="country" class="col-sm-2 col-form-label">Страна</label>
                 <input id="country" name="country" type="text"
                     class="form-control @error('country') is-invalid @enderror" value="{{ $product->country }}">
                 @error('country')
@@ -78,6 +79,8 @@
                 @error('year')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                 @enderror
+                -->
+                
 
                 <div class="pt-2"><button class="btn btn-primary">Сохранить</button></div>
 

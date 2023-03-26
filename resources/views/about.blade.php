@@ -3,8 +3,7 @@
 @section('content')
     <div class="container">
         <h1>О нас</h1>
-        <p>Мы - Молодая компания "True Games" занимаемся продажей игровых приставок и аксессуаров. Мы продаем множество
-            игровых устройств таких как консоли, приставки и даже игры. Всё очень дёшего невероятно.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni animi totam debitis officiis, quis sed molestiae cum, sit omnis fuga nihil sequi. Modi animi quam architecto repudiandae sit exercitationem eius?</p>
 
         <div class="row">
             <div class="col-md-4"></div>

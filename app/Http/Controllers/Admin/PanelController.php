@@ -46,8 +46,8 @@ class PanelController extends Controller
             $product->description = $data['description'];
             $product->cost = $data['cost'];
             $product->count = $data['count'];
-            $product->country = $data['country'];
-            $product->year = $data['year'];
+            // $product->country = $data['country'];
+            // $product->year = $data['year'];
 
             $product->save();
         }

@@ -23,7 +23,14 @@ use App\Models\Category;
             }
         </style>
 
+        
+
+
         <div class="row">
+
+            <form action="">
+                <button type="submit" class="btn btn-primary">Оформить заказ</button>
+            </form>
 
             @foreach ($bucket as $key => $elem)
                 @php($product = $elem['object'])

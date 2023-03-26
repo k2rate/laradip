@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'Кондитерская')</title>
+    <title>@yield('title', 'My Delivery')</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -26,7 +26,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Кондитерская
+                    My Delivery
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -48,6 +48,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('bucket') }}">Корзина</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('bucket') }}">Ваши заказы</a>
                         </li>
                     </ul>
 
