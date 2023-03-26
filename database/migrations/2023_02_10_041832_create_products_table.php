@@ -20,11 +20,9 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('category_id');
             $table->string('description');
-            $table->string('country');
             $table->string('image');
             $table->bigInteger('cost')->unsigned();
             $table->bigInteger('count')->unsigned();
-            $table->bigInteger('year')->unsigned();
             
         });
     }

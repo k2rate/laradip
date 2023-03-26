@@ -99,7 +99,9 @@
                 @error('count')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                 @enderror
-
+                
+                <!-- 
+                
                 <label for="country" class="col-sm-2 col-form-label">Страна</label>
                 <input id="country" name="country" type="text"
                     class="form-control @error('country') is-invalid @enderror">
@@ -113,6 +115,9 @@
                 @error('year')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                 @enderror
+                
+                -->
+                
 
                 <label for="image" class="form-label">Картинка</label>
                 <input id="image" name="image" type="file"

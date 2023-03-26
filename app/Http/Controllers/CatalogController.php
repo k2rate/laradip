@@ -38,10 +38,13 @@ class CatalogController extends Controller
             {
                 $products = Product::where('category_id', $category_id)->orderBy('name', $order)->get();
             }
+            /*
             else if ($sort_type == 'year')
             {
                 $products = Product::where('category_id', $category_id)->orderBy('year', $order)->get();
             }
+            */
+            
         }
         else
         {
@@ -57,10 +60,12 @@ class CatalogController extends Controller
             {
                 $products = Product::orderBy('name', $order)->get();
             }
+            /*
             else if ($sort_type == 'year')
             {
                 $products = Product::orderBy('year', $order)->get();
             }
+            */
         }
 
 
