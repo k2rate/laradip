@@ -11,6 +11,18 @@ use App\Models\Category;
         <div class="state">
         </div>
 
+        <style>
+            .ky {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .ky-item {
+                padding: 0px 10px;
+            }
+        </style>
+
         <div class="row">
 
             @foreach ($bucket as $key => $elem)
@@ -24,18 +36,24 @@ use App\Models\Category;
                             <p class="card-text">Категория: {{ Category::find($product->category_id)->name }}</p>
                             <p class="card-text">{{ $product->description }}</p>
                             <p class="card-text">Цена: {{ $product->cost }}</p>
-                            <p class="card-text">В корзине: <span id="product-count">{{ $elem['count'] }}</span></p>
-                            <form class="ajax-form-append" action="{{ route('bucket.add') }}" method="POST" index={{ $key }}>
-                                @csrf
-                                <input type="hidden" name="id", value="{{ $product->id }}">
-                                <button type="submit" class="btn btn-primary product-btn">Добавить ещё</button>
-                            </form>
 
-                            <form class="ajax-form-remove" action="{{ route('bucket.remove') }}" method="POST" index={{ $key }}>
-                                @csrf
-                                <input type="hidden" name="index", value="{{ $key }}">
-                                <button type="submit" class="btn btn-danger product-btn">Удалить из корзины</button>
-                            </form>
+                            <div class="ky">
+                                <form class="ajax-form-remove ky-item" action="{{ route('bucket.remove') }}" method="POST" index={{ $key }}>
+                                    @csrf
+                                    <input type="hidden" name="index", value="{{ $key }}">
+                                    <button type="submit" class="btn btn-danger product-btn">-</button>
+                                </form>
+
+                                <p class="ky-item" id="product-count" style="margin: 0;">{{ $elem['count'] }}</p>
+                                
+                                <form class="ajax-form-append ky-item" action="{{ route('bucket.add') }}" method="POST" index={{ $key }}>
+                                    @csrf
+                                    <input type="hidden" name="id", value="{{ $product->id }}">
+                                    <button type="submit" class="btn btn-primary product-btn">+</button>
+                                </form>
+                                
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
