@@ -32,7 +32,8 @@ class BucketController extends Controller
         $bucket_product_count = getProductCount($bucket, $product_id);
 
         if ($bucket_product_count >= $product->count) {
-            return response()->json(['error' => 'На складе недостаточно товаров']);
+            return back();
+            // return response()->json(['error' => 'На складе недостаточно товаров']);
         }
 
         if ($bucket_product_count) {
@@ -49,7 +50,9 @@ class BucketController extends Controller
 
         
         session(compact('bucket'));
-        return response()->json(['error' => 'success']);
+        return back();
+
+        // return response()->json(['error' => 'success']);
     }
 
     public function ajaxRemove(BucketRemoveRequest $req)
@@ -58,7 +61,11 @@ class BucketController extends Controller
 
         $bucket = session('bucket', null);
         if ($bucket == null)
-            return response()->json();
+        {
+            return back();
+            // return response()->json();
+        }
+            
 
         foreach ($bucket as $key => $obj) {
             if ($data['index'] == $key) {
@@ -73,7 +80,24 @@ class BucketController extends Controller
         }
 
         session(compact('bucket'));
-        return response()->json();
+        return back();
+
+        // return response()->json();
+    }
+
+    public function checkout()
+    {
+        $bucket = session('bucket', []);
+
+        $summary = 0;
+        foreach ($bucket as $key => $obj) {
+            $summary += $obj['object']->cost * $obj['count'];
+        }
+
+        
+
+        return view('checkout', compact('bucket', 'summary'));
+        // return back();
     }
 
     public function index()

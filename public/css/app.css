@@ -65,3 +65,36 @@
 .tovar-desc p {
     width: 100%;
 }
+
+.form-ky {
+    padding-bottom: 10px;
+}
+
+.sort-lim {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+}
+
+.ky {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fleft {
+    display: flex;
+    align-items: center;
+}
+
+.ky-item {
+    padding: 0px 10px;
+}
+
+.product-btn {
+    color: #f6f6f6;
+}
+
+.basket-card {
+    min-height: 100%;
+}

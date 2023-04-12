@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'My Delivery')</title>
+    <title>@yield('title', 'EatShop')</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -26,16 +26,15 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    My Delivery
+                    EatShop
                 </a>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('about') }}">О нас</a>
@@ -46,33 +45,24 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('where') }}">Где нас найти</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('bucket') }}">Корзина</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('bucket') }}">Ваши заказы</a>
-                        </li>
-                    </ul>
-
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        @if ($isAdmin)
-                            @include('includes.header.nav.admin')
-                        @else
-                            @include('includes.header.nav.default')
-                        @endif
                     </ul>
                 </div>
+
             </div>
         </nav>
 
         <main class="py-4">
             @yield('content')
         </main>
+
+        <footer class="py-3 my-4">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">О нас</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Каталог</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Где нас найти</a></li>
+            </ul>
+            <p class="text-center text-muted">© 2023 EatShop</p>
+        </footer>
     </div>
 
     @vite(['resources/js/app.js'])

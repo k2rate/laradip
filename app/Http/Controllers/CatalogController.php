@@ -70,7 +70,8 @@ class CatalogController extends Controller
 
 
         $categories = Category::all();
+        $bucket = session('bucket', []);
 
-        return view('catalog', compact('products', 'categories', 'category_id', 'sort_type', 'order'));
+        return view('catalog', compact('products', 'categories', 'category_id', 'sort_type', 'order', 'bucket'));
     }
 }

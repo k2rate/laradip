@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect()->to('/about');
+    return redirect()->to('/catalog');
 });
 
 Auth::routes();
@@ -29,8 +29,10 @@ Route::get('/product/{product_id}/', [App\Http\Controllers\ProductController::cl
 
 Route::post('/addbucket', [App\Http\Controllers\BucketController::class, 'ajaxAdd'])->name('bucket.add');
 Route::post('/removebucket', [App\Http\Controllers\BucketController::class, 'ajaxRemove'])->name('bucket.remove');
+Route::get('/checkout', [App\Http\Controllers\BucketController::class, 'checkout'])->name('bucket.checkout');
 
 Route::get('/bucket', [App\Http\Controllers\BucketController::class, 'index'])->name('bucket');
+
 
 Route::get('/admin', [App\Http\Controllers\Admin\LoginController::class, 'index'])->name('admin');
 Route::post('/admin/login', [App\Http\Controllers\Admin\LoginController::class, 'login'])->name('admin.login');
@@ -47,7 +49,6 @@ Route::middleware([App\Http\Middleware\Admin\Check::class])->group(function () {
     Route::post('/admin/addCategory', [App\Http\Controllers\Admin\PanelController::class, 'addCategory'])->name('admin.addCategory');
     Route::post('/admin/deleteCategory', [App\Http\Controllers\Admin\PanelController::class, 'deleteCategory'])->name('admin.deleteCategory');
 });
-
 
 
 /*
