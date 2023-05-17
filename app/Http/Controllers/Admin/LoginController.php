@@ -10,7 +10,7 @@ class LoginController extends Controller
 {
     public function login(LoginRequest $request)
     {
-        if ($request['login'] == 'admin' && $request['password'] == 'admin77')
+        if ($request['login'] == 'admin' && $request['password'] == 'admin71')
         {
             session(['isAdmin' => true]);
             return redirect()->route('admin.panel');

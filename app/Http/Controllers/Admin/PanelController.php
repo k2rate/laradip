@@ -16,6 +16,7 @@ use App\Http\Requests\Admin\DeleteCategoryRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Checkout;
 
 class PanelController extends Controller
 {
@@ -23,8 +24,29 @@ class PanelController extends Controller
     {
         $products = Product::all();
         $categories = Category::all();
+        $checkouts_elo = Checkout::all();
+        $checkouts = [];
+        foreach ($checkouts_elo as $elo) {
+            $checkout['data'] = $elo;
+            
+            $summary = 0;
+            $bucket = json_decode($elo['bucket'], true);
+            foreach ($bucket as $key => $obj) {
+                $bucket[$key]['object'] = Product::find($bucket[$key]['id']);
+                $summary += $bucket[$key]['count'];
+            }
 
-        return view('admin.panel', compact('products', 'categories'));
+
+
+            $checkout['bucket'] = $bucket;
+            $checkout['summary'] = $summary;
+
+            array_push($checkouts, $checkout);
+        }
+
+       
+
+        return view('admin.panel', compact('products', 'categories', 'checkouts'));
     }
 
     public function viewProduct(Request $req, $productId)

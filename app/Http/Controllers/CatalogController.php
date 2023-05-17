@@ -70,7 +70,11 @@ class CatalogController extends Controller
 
 
         $categories = Category::all();
+        
         $bucket = session('bucket', []);
+        foreach ($bucket as $key => $obj) {
+            $bucket[$key]['object'] = Product::find($bucket[$key]['id']);
+        }
 
         return view('catalog', compact('products', 'categories', 'category_id', 'sort_type', 'order', 'bucket'));
     }

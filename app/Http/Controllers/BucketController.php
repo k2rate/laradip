@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Checkout;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
-
 use App\Http\Requests\BucketAddRequest;
 use App\Http\Requests\BucketRemoveRequest;
+use App\Http\Requests\CheckoutSubmitRequest;
 
 function getProductCount($bucket, $product_id)
 {
     foreach ($bucket as $bucketElement) {
-        if ($bucketElement['object']->id == $product_id)
+        if ($bucketElement['id'] == $product_id)
             return $bucketElement['count'];
     }
 
@@ -38,14 +39,14 @@ class BucketController extends Controller
 
         if ($bucket_product_count) {
             foreach ($bucket as $key => $obj) {
-                if($obj['object']->id == $product_id) {
+                if($obj['id'] == $product_id) {
                     $bucket[$key]['count']++;
                     break;
                 }
             }
         }
         else {
-            array_push($bucket, ['object' => $product, 'count' => 1]);
+            array_push($bucket, ['id' => $product->id, 'count' => 1]);
         }
 
         
@@ -88,16 +89,37 @@ class BucketController extends Controller
     public function checkout()
     {
         $bucket = session('bucket', []);
+        foreach ($bucket as $key => $obj) {
+            $bucket[$key]['object'] = Product::find($bucket[$key]['id']);
+        }
 
         $summary = 0;
         foreach ($bucket as $key => $obj) {
             $summary += $obj['object']->cost * $obj['count'];
         }
 
-        
+        $status = session('checkout', 'ready');
+        session(['checkout' => 'ready']);
 
-        return view('checkout', compact('bucket', 'summary'));
+        return view('checkout', compact('bucket', 'summary', 'status'));
         // return back();
+    }
+
+    public function checkoutSubmit(CheckoutSubmitRequest $req)
+    {
+        $data = $req->validated();
+        $bucket = session('bucket', []);
+        $jsbucket = json_encode($bucket);
+
+        $bucket = session('bucket', []);
+        $data['bucket'] = $jsbucket;
+
+        Checkout::firstOrCreate($data);
+        
+        session(['checkout' => 'confirmed']);
+        session(['bucket' => []]);
+
+        return back();
     }
 
     public function index()

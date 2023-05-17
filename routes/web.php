@@ -29,16 +29,18 @@ Route::get('/product/{product_id}/', [App\Http\Controllers\ProductController::cl
 
 Route::post('/addbucket', [App\Http\Controllers\BucketController::class, 'ajaxAdd'])->name('bucket.add');
 Route::post('/removebucket', [App\Http\Controllers\BucketController::class, 'ajaxRemove'])->name('bucket.remove');
-Route::get('/checkout', [App\Http\Controllers\BucketController::class, 'checkout'])->name('bucket.checkout');
+Route::post('/checkoutSubmit', [App\Http\Controllers\BucketController::class, 'checkoutSubmit'])->name('bucket.checkoutSubmit');
 
+Route::get('/checkout', [App\Http\Controllers\BucketController::class, 'checkout'])->name('bucket.checkout');
 Route::get('/bucket', [App\Http\Controllers\BucketController::class, 'index'])->name('bucket');
 
+// Route::get('/admin/logout', [App\Http\Controllers\Admin\LoginController::class, 'logout'])->name('admin.logout');
 
 Route::get('/admin', [App\Http\Controllers\Admin\LoginController::class, 'index'])->name('admin');
 Route::post('/admin/login', [App\Http\Controllers\Admin\LoginController::class, 'login'])->name('admin.login');
 
 Route::middleware([App\Http\Middleware\Admin\Check::class])->group(function () {
-    Route::post('/admin/logout', [App\Http\Controllers\Admin\LoginController::class, 'logout'])->name('admin.logout');
+    Route::get('/admin/logout', [App\Http\Controllers\Admin\LoginController::class, 'logout'])->name('admin.logout');
 
     Route::get('/admin/panel', [App\Http\Controllers\Admin\PanelController::class, 'index'])->name('admin.panel');
     Route::post('/admin/storeProduct', [App\Http\Controllers\Admin\PanelController::class, 'storeProduct'])->name('admin.storeProduct');

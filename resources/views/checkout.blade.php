@@ -2,9 +2,10 @@
 
 @section('content')
     <div class="container">
-        <form action="">
+        <form action="{{ route('bucket.checkoutSubmit') }}" method="POST">
+            @csrf
             <h2>Оформление заказа</h2>
-
+            <h3>{{ $status }}</h3>
             <div class="row">
                 <div class="col-lg-6 col-sm-12 p-2">
                     <div class="card">
@@ -13,29 +14,25 @@
                         </div>
                         <div class="card-body">
                             <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label for="name" class="form-label">Имя</label>
-                                    <input type="text" class="form-control" id="name">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="lastname" class="form-label">Фамилия</label>
-                                    <input type="password" class="form-control" id="lastname">
+                                <div class="col-12">
+                                    <label for="name" class="form-label">Как к вам обращаться</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class="col-12">
                                     <label for="address" class="form-label">Адрес доставки</label>
-                                    <input type="text" class="form-control" id="address">
+                                    <input type="text" class="form-control" id="address" name="address" required>
                                 </div>
                                 <div class="col-12">
                                     <label for="comment" class="form-label">Комментарий к заказу</label>
-                                    <input type="text" class="form-control" id="comment">
+                                    <input type="text" class="form-control" id="comment" name="comment" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="email" class="form-label">Почта</label>
-                                    <input type="email" class="form-control" id="email">
+                                    <input type="email" class="form-control" id="email" name="email" required>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="phone" class="form-label">Номер телефона</label>
-                                    <input type="text" class="form-control" id="phone">
+                                    <input type="text" class="form-control" id="phone" name="phone" required>
                                 </div>
                             </div>
                         </div>

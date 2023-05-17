@@ -14,6 +14,8 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
+    <link rel="icon" type="image/png" href="{{ asset("img/logo.png") }}" />
+
     <!-- Scripts -->
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -26,7 +28,8 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    EatShop
+                    <img src="{{ asset("img/logo.png") }}" class="pe-2" height="30" alt="">
+                    <span>EatShop</span>            
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
