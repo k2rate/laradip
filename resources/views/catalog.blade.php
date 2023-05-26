@@ -7,7 +7,7 @@
 @section('content')
     <div class="container">
 
-        <h1>Каталог</h1>
+        <h1 class="">Каталог</h1>
 
         <div class="state"></div>
 
@@ -18,9 +18,6 @@
                         name="sort_type">
                         <option @if ($sort_type == 'default') selected @endif value="default">Сортировать</option>
                         <option @if ($sort_type == 'cost') selected @endif value="cost">По цене</option>
-
-                        <!-- <option @if ($sort_type == 'year') selected @endif value="year">По году</option> -->
-
                         <option @if ($sort_type == 'name') selected @endif value="name">По наименованию</option>
                     </select>
                 </div>
@@ -82,9 +79,6 @@
                                 <p class="card-text fw-bold">{{ $product->cost }} ₽</p>
                                 <p class="card-text">Категория: {{ Category::find($product->category_id)->name }}</p>
                                 <p class="card-text">{{ $product->description }}</p>
-
-                                <!--  <p class="card-text">Количество: {{ $product->count }}</p> -->
-
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
@@ -111,13 +105,6 @@
                                         <p class="card-text" style="min-height: 45px">{{ $product->name }}</p>
                                         <p class="card-text fw-bold">{{ $product->cost }} ₽</p>
 
-
-                                        <!-- <p class="card-text">Категория: {{ Category::find($product->category_id)->name }}</p> -->
-                                        <!-- <p class="card-text">{{ $product->description }}</p> -->
-                                        <!-- <p class="card-text">Количество: {{ $product->count }}</p> -->
-
-
-
                                         <form class="" action="{{ route('bucket.add') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="id", value="{{ $product->id }}">
@@ -140,7 +127,7 @@
                     <button type="submit" class="btn btn-success w-100">Оформить заказ</button>
                 </form>
 
-                <div class="pb-5 h-100">
+                <div class="pb-5 h-100" style="position: relative;">
                     <div class="card h-100" style="">
 
                         <div class="card-header">

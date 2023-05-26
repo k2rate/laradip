@@ -18,12 +18,11 @@ return new class extends Migration
             $table->timestamps();
                  
             $table->string('name');
-            $table->foreignId('category_id');
+            $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('description');
             $table->string('image');
             $table->bigInteger('cost')->unsigned();
             $table->bigInteger('count')->unsigned();
-            
         });
     }
 

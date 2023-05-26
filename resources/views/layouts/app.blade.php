@@ -14,7 +14,7 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-    <link rel="icon" type="image/png" href="{{ asset("img/logo.png") }}" />
+    <link rel="icon" type="image/png" href="{{ asset('img/logo.png') }}" />
 
     <!-- Scripts -->
 
@@ -24,12 +24,13 @@
 </head>
 
 <body>
+
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top" id="header">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{ asset("img/logo.png") }}" class="pe-2" height="30" alt="">
-                    <span>EatShop</span>            
+                    <img src="{{ asset('img/logo.png') }}" class="pe-2" height="30" alt="">
+                    <span>EatShop</span>
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -46,7 +47,7 @@
                             <a class="nav-link" href="{{ route('catalog') }}">Каталог</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('where') }}">Где нас найти</a>
+                            <a class="nav-link" href="{{ route('where') }}">Контакты</a>
                         </li>
                     </ul>
                 </div>
@@ -62,7 +63,7 @@
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">О нас</a></li>
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Каталог</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Где нас найти</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Контакты</a></li>
             </ul>
             <p class="text-center text-muted">© 2023 EatShop</p>
         </footer>
@@ -73,6 +74,15 @@
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/addbucket.js') }}"></script>
 
+    <script>
+        let header = document.querySelector('#header');
+        let width = header.offsetWidth;
+        let height = header.offsetHeight;
+
+        let main = document.querySelector('main');
+        main.style = 'margin-top: ' + height + 'px;';
+
+    </script>
 </body>
 
 </html>
