@@ -25,13 +25,20 @@
 
 <body>
 
+
+
+
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top" id="header">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{ asset('img/logo.png') }}" class="pe-2" height="30" alt="">
-                    <span>EatShop</span>
-                </a>
+
+                <div class="logo-block me-3">
+                    <a href="/"
+                        class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                        <img src="{{ asset('img/logo.png') }}" class="me-2" width="30" alt="">
+                        <span class="fs-5">EatShop</span>
+                    </a>
+                </div>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent">
@@ -74,6 +81,8 @@
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/addbucket.js') }}"></script>
 
+
+
     <script>
         let header = document.querySelector('#header');
         let width = header.offsetWidth;
@@ -81,8 +90,9 @@
 
         let main = document.querySelector('main');
         main.style = 'margin-top: ' + height + 'px;';
-
     </script>
+
+    @yield('scripts', '')
 </body>
 
 </html>

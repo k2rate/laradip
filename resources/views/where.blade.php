@@ -2,7 +2,6 @@
 
 @section('content')
     <div class="container">
-
         <style>
             .bg-gray {
                 background-color: #ffffff;
@@ -22,7 +21,7 @@
                     222-83-43.</p>
                 <p>Обратите внимание, что мы не принимаем заказы по телефону. Сделать заказ всегда можно на сайте или через
                     мобильные приложения.</p>
-                
+
                 <p class="fw-bold m-0">Местоположение</p>
                 <p>Наш офис располагается по адресу Ясная 28 дом 4 корпус 3.</p>
             </div>
@@ -32,4 +31,7 @@
             {{-- <img class="d-block" style="margin: 0 auto; max-width: 100%;" src="{{ asset('img/map.jpg') }}" alt=""> --}}
 
         </div>
-    @endsection
+    </div>
+@endsection
+
+

@@ -97,8 +97,8 @@
                         <div class="col-xl-3 col-md-4 col-6">
                             
                                 <div class="card mb-3">
-                                    <div class="" style="height: 210px;" onclick="$('#modal_{{ $loop->index }}').modal('show');">
-                                        <img class="img-fluid" style="padding: 10px;" src="{{ asset($product->image) }}">
+                                    <div class="p-2" style="height: 210px;" onclick="$('#modal_{{ $loop->index }}').modal('show');">
+                                        <img class="img-fluid" src="{{ asset($product->image) }}">
                                     </div>
                                     
                                     <div class="card-body">
@@ -140,9 +140,8 @@
 
                                 <li class="list-group-item">
                                     <div class="row">
-                                        <div class="col-6 d-flex justify-content-center">
-                                            <img class="img-fluid d-block" style="max-height: 130px;"
-                                                src="{{ $product->image }}">
+                                        <div class="col-6">
+                                            <img class="img-fluid" src="{{ $product->image }}">                                     
                                         </div>
                                         <div class="col-6">
                                             <p>{{ $product->name }}</p>

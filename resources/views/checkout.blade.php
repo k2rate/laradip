@@ -2,10 +2,32 @@
 
 @section('content')
     <div class="container">
+
+        @if ($status == 'confirmed')
+            <div class="modal" tabindex="-1" id="exampleModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Заказ оформлен</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Ваш заказ оформлен. Номер вашего заказа: </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+
         <form action="{{ route('bucket.checkoutSubmit') }}" method="POST">
             @csrf
             <h2>Оформление заказа</h2>
-            <h3>{{ $status }}</h3>
+            {{-- <h3>{{ $status }}</h3> --}}
+
             <div class="row">
                 <div class="col-lg-6 col-sm-12 p-2">
                     <div class="card">
@@ -83,7 +105,7 @@
                 </div>
             </div>
         </form>
-        
+
         <div class="row">
             <div class="col-sm-12 col-lg-6 p-2">
                 <div class="card mt-3">
@@ -144,4 +166,15 @@
 
 
     </div>
+@endsection
+
+
+@section('scripts')
+    @if ($status == 'confirmed')
+        <script>
+            $(document).ready(function() {
+                $("#exampleModal").modal('show');
+            });
+        </script>
+    @endif
 @endsection
