@@ -50,6 +50,7 @@ Route::middleware([App\Http\Middleware\Admin\Check::class])->group(function () {
     Route::post('/admin/deleteProduct', [App\Http\Controllers\Admin\PanelController::class, 'deleteProduct'])->name('admin.deleteProduct');
     Route::post('/admin/addCategory', [App\Http\Controllers\Admin\PanelController::class, 'addCategory'])->name('admin.addCategory');
     Route::post('/admin/deleteCategory', [App\Http\Controllers\Admin\PanelController::class, 'deleteCategory'])->name('admin.deleteCategory');
+    Route::post('/admin/finishCheckout', [App\Http\Controllers\Admin\PanelController::class, 'finishCheckout'])->name('admin.finishCheckout');
 });
 
 

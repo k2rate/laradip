@@ -122,4 +122,12 @@ class PanelController extends Controller
         Category::find($data['id'])->delete();
         return redirect()->route('admin.panel');
     }
+
+    public function finishCheckout(Request $req)
+    {
+        $id = $req['id'];
+        Checkout::where('id', $id)->delete();
+
+        return back();
+    }
 }

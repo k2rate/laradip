@@ -33,8 +33,8 @@ class BucketController extends Controller
         $bucket_product_count = getProductCount($bucket, $product_id);
 
         if ($bucket_product_count >= $product->count) {
-            return back();
-            // return response()->json(['error' => 'На складе недостаточно товаров']);
+            // return back();
+            return response()->json(['error' => 'На складе недостаточно товаров']);
         }
 
         if ($bucket_product_count) {
@@ -44,46 +44,63 @@ class BucketController extends Controller
                     break;
                 }
             }
+
+            session(compact('bucket'));
         }
         else {
-            array_push($bucket, ['id' => $product->id, 'count' => 1]);
+
+            $basket_product = ['id' => $product->id, 'count' => 1];
+            array_push($bucket, $basket_product);
+
+            session(compact('bucket'));
+
+            $basket_product['object'] = $product;
+            $callback_id = $product->id;
+
+            $html = view('includes.basket.product', compact('basket_product', 'callback_id'))->render();
+
+            return response()->json(['error' => 'success', 'callback_id' => $callback_id, 'html' => $html]);
         }
 
         
-        session(compact('bucket'));
-        return back();
+        
+        // return back();
 
-        // return response()->json(['error' => 'success']);
+        return response()->json(['error' => 'success']);
     }
 
     public function ajaxRemove(BucketRemoveRequest $req)
     {
         $data = $req->validated();
 
+        $product_id = $data['id'];
+        $product = Product::find($product_id);
+
         $bucket = session('bucket', null);
         if ($bucket == null)
         {
-            return back();
-            // return response()->json();
-        }
-            
+            // return back();
+            return response()->json(['error' => 'Ваша корзина пуста']);
+        }          
 
+        $removed = false;
         foreach ($bucket as $key => $obj) {
-            if ($data['index'] == $key) {
-                if ($obj['count'] != 0) {
-                    $bucket[$key]['count']--;
-                }
-                if ($bucket[$key]['count'] == 0) {
+            if ($product_id == $obj['id']) {
+
+                $bucket[$key]['count']--;
+                if ($bucket[$key]['count'] <= 0) {
                     unset($bucket[$key]);
                 }
+                
+                $removed = true;
                 break;
             }
         }
 
         session(compact('bucket'));
-        return back();
+        // return back();
 
-        // return response()->json();
+        return response()->json(['error' => 'success', 'removed' => $removed]);
     }
 
     public function checkout()
@@ -108,6 +125,7 @@ class BucketController extends Controller
     public function checkoutSubmit(CheckoutSubmitRequest $req)
     {
         $data = $req->validated();
+  
         $bucket = session('bucket', []);
         $jsbucket = json_encode($bucket);
 
@@ -120,6 +138,11 @@ class BucketController extends Controller
         session(['bucket' => []]);
 
         return back();
+    }
+
+    public function checkoutInfo($id)
+    {
+
     }
 
     public function index()

@@ -28,11 +28,8 @@ class CatalogController extends Controller
         $products = $query->get();
         $categories = Category::all();
 
-        $bucket = session('bucket', []);
-        foreach ($bucket as $key => $obj) {
-            $bucket[$key]['object'] = Product::find($bucket[$key]['id']);
-        }
+        // return htmlspecialchars(view('includes.basket', ['product' => $products[0]])->render());
 
-        return view('catalog', compact('products', 'categories', 'category_id', 'sort_type', 'order', 'bucket'));
+        return view('catalog', compact('products', 'categories', 'category_id', 'sort_type', 'order'));
     }
 }

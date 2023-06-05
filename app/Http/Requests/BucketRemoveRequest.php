@@ -24,7 +24,7 @@ class BucketRemoveRequest extends FormRequest
     public function rules()
     {
         return [
-            'index' => 'required|integer',
+            'id' => 'required|integer',
             
         ];
     }

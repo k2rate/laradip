@@ -4,172 +4,133 @@
     <div class="container">
 
         @if ($status == 'confirmed')
-            <div class="modal" tabindex="-1" id="exampleModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Заказ оформлен</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Ваш заказ оформлен. Номер вашего заказа: </p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <x-modal title="Заказ оформлен" id="exampleModal">
+                <p>Ваш заказ оформлен. По прибытию курьер позвонит на ваш номер телефона при необходимости.</p>
+            </x-modal>
         @endif
 
 
-        <form action="{{ route('bucket.checkoutSubmit') }}" method="POST">
-            @csrf
+        <x-form route="bucket.checkoutSubmit" method="POST">
             <h2>Оформление заказа</h2>
-            {{-- <h3>{{ $status }}</h3> --}}
 
             <div class="row">
                 <div class="col-lg-6 col-sm-12 p-2">
-                    <div class="card">
-                        <div class="card-header">
-                            Детали заказа
-                        </div>
-                        <div class="card-body">
-                            <div class="row g-3">
-                                <div class="col-12">
-                                    <label for="name" class="form-label">Как к вам обращаться</label>
-                                    <input type="text" class="form-control" id="name" name="name" required>
-                                </div>
-                                <div class="col-12">
-                                    <label for="address" class="form-label">Адрес доставки</label>
-                                    <input type="text" class="form-control" id="address" name="address" required>
-                                </div>
-                                <div class="col-12">
-                                    <label for="comment" class="form-label">Комментарий к заказу</label>
-                                    <input type="text" class="form-control" id="comment" name="comment" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="email" class="form-label">Почта</label>
-                                    <input type="email" class="form-control" id="email" name="email" required>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="phone" class="form-label">Номер телефона</label>
-                                    <input type="text" class="form-control" id="phone" name="phone" required>
-                                </div>
+                    <x-card title="Детали заказа">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <x-input name="name" placeholder="Имя и/или фамилия" required></x-input>
+                            </div>
+
+                            <div class="col-12">
+                                <x-input name="address" class="address-field" required readonly placeholder="Адрес доставки">
+                                </x-input>
+                            </div>
+
+                            <div class="col-3">
+                                <x-input name="kv" placeholder="Кв./Офис"></x-input>
+                            </div>
+
+                            <div class="col-3">
+                                <x-input name="dm" placeholder="Домофон"></x-input>
+                            </div>
+
+                            <div class="col-3">
+                                <x-input name="pd" placeholder="Подъезд"></x-input>
+                            </div>
+
+                            <div class="col-3">
+                                <x-input name="et" placeholder="Этаж"></x-input>
+                            </div>
+
+                            <div class="col-12">
+                                <x-input name="comment" placeholder="Комментарий к заказу"></x-input>
+                            </div>
+
+                            <div class="col-md-6">
+                                <x-input name="email" placeholder="Эл. Почта"></x-input>
+                            </div>
+
+                            <div class="col-md-6">
+                                <x-input name="phone" required placeholder="Номер телефона"></x-input>
                             </div>
                         </div>
-
-                    </div>
+                    </x-card>
                 </div>
+
 
                 <div class="col-lg-6 col-sm-12 p-2">
-                    <div class="card">
-                        <div class="card-header">
-                            Оплата заказа
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-12 mb-4">
-                                    <h4 class="fw-bold">Итого</h4>
-                                    <div class="row p-1">
-                                        <div class="col-4">Стоимость заказа </div>
-                                        <div class="col-3 fw-bold"> {{ $summary }} ₽</div>
-                                    </div>
-                                    <div class="row p-1">
-                                        <div class="col-4">Доставка </div>
-                                        <div class="col-3 fw-bold"> 0 ₽</div>
-                                    </div>
-                                    <div class="row p-1">
-                                        <div class="col-4">Работа сервиса </div>
-                                        <div class="col-3 fw-bold"> 0 ₽</div>
-                                    </div>
+                    <x-card title="Оплата заказа">
+                        <div class="row">
+                            <div class="col-12 mb-4">
+                                <h4 class="fw-bold">Итого</h4>
+                                <div class="row p-1">
+                                    <div class="col-4">Стоимость заказа </div>
+                                    <div class="col-3 fw-bold"> {{ $summary }} ₽</div>
                                 </div>
-                                <div class="col-12">
-                                    <label for="inputState" class="form-label">Способ оплаты</label>
+                                <div class="row p-1">
+                                    <div class="col-4">Доставка </div>
+                                    <div class="col-3 fw-bold"> 0 ₽</div>
                                 </div>
-                                <div class="col-6">
-                                    <select id="inputState" class="form-select">
-                                        <option selected>Оплата при получении</option>
-                                    </select>
-                                </div>
-                                <div class="col-6"></div>
-
-                                <div class="col-12 mt-3">
-                                    <button type="submit" class="btn btn-success">Оформить заказ</button>
-                                    <span class="fw-bold ps-3 fs-5">{{ $summary }} ₽</span>
+                                <div class="row p-1">
+                                    <div class="col-4">Работа сервиса </div>
+                                    <div class="col-3 fw-bold"> 0 ₽</div>
                                 </div>
                             </div>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
+                            <div class="col-6">
+                                <x-select name="payway" id="payway" label="Способ оплаты">
+                                    <option selected value="0">Оплата при получении</option>
+                                    <option value="1">Оплата картой</option>
+                                </x-select>
+                            </div>
+                            <div class="col-6"></div>
 
-        <div class="row">
-            <div class="col-sm-12 col-lg-6 p-2">
-                <div class="card mt-3">
-                    <div class="card-header">
-                        Ваш заказ
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            @foreach ($bucket as $key => $elem)
-                                @php($product = $elem['object'])
-
-                                <li class="list-group-item">
+                            <div class="col-12">
+                                <div id="card-info" class="d-none">
                                     <div class="row">
-                                        <div class="col-4 d-flex justify-content-center">
-                                            <img class="img-fluid d-block" style="max-height: 130px;"
-                                                src="{{ $product->image }}">
+                                        <div class="col-md-12">
+                                            <x-input name="cardnumber" placeholder="1111 2222 3333 4444">Номер кредитной карты</x-input>
                                         </div>
-                                        <div class="col-4">
-                                            <p>{{ $product->name }}</p>
-                                            <p class="fw-bold">{{ $product->cost }} ₽</p>
-
-                                            <div class="d-flex align-items-center">
-                                                <form class="me-3" action="{{ route('bucket.remove') }}" method="POST"
-                                                    index={{ $key }}>
-                                                    @csrf
-                                                    <input type="hidden" name="index", value="{{ $key }}">
-                                                    <button type="submit" class="btn btn-danger product-btn">-</button>
-                                                </form>
-
-                                                <p class="me-3" id="product-count" style="margin: 0;">
-                                                    {{ $elem['count'] }}
-                                                </p>
-
-                                                <form action="{{ route('bucket.add') }}" method="POST"
-                                                    index={{ $key }}>
-                                                    @csrf
-                                                    <input type="hidden" name="id", value="{{ $product->id }}">
-                                                    <button type="submit" class="btn btn-success product-btn">+</button>
-                                                </form>
-                                            </div>
-                                        </div>
-
                                     </div>
 
-                                </li>
-                            @endforeach
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <x-input name="expiry" placeholder="12/20">Срок действия</x-input>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <x-input name="cvv" placeholder="XXX">CVV</x-input>
+                                        </div>
+                                    </div>
+                                </div>
 
+                            </div>
 
-                        </ul>
-                    </div>
+                            <div class="col-12">
+                                <x-submit class="btn-success">Оформить заказ</x-submit>
+                                <span class="fw-bold ps-3 fs-5">{{ $summary }} ₽</span>
+                            </div>
+
+                        </div>
+                    </x-card>
                 </div>
             </div>
 
-        </div>
 
 
+        </x-form>
 
 
+        <x-modal title="Выбор адреса" id="map-modal" class="modal-lg">
+            <x-input class="address-field" readonly>Адрес доставки</x-input>
+            <div class="map m-0" id="map" style="height: 400px; width: 100%;">
+            </div>
+        </x-modal>
 
     </div>
 @endsection
 
 
-@section('scripts')
+@push('scripts')
     @if ($status == 'confirmed')
         <script>
             $(document).ready(function() {
@@ -177,4 +138,91 @@
             });
         </script>
     @endif
-@endsection
+
+
+    <script>
+        document.getElementById("payway").onchange = changeListener;
+
+        function changeListener() {
+            var value = this.selectedIndex;
+
+            if (value == 0) {
+                $('#card-info').addClass('d-none');
+            } else if (value == 1) {
+                $('#card-info').removeClass('d-none');
+            }
+        }
+    </script>
+
+    <script src="https://enterprise.api-maps.yandex.ru/2.1/?lang=ru&apikey=c0d403ab-e5be-4049-908c-8122a58acf23"
+        type="text/javascript"></script>
+
+    <script>
+        ymaps.ready(init);
+
+        function init() {
+            var geolocation = ymaps.geolocation;
+            var coords;
+            geolocation.get({
+                provider: 'yandex',
+                mapStateAutoApply: true
+            }).then(function(result) {
+                result.geoObjects.options.set('preset', 'islands#redCircleIcon');
+                result.geoObjects.get(0).properties.set({
+                    balloonContentBody: 'Мое местоположение'
+                });
+
+
+                coords = result.geoObjects.get(0).geometry.getCoordinates();
+                initWithCoords(coords);
+            });
+        }
+
+        function initWithCoords(startCoords) {
+            var myMap = new ymaps.Map('map', {
+                center: startCoords,
+                zoom: 9
+            }, {
+                searchControlProvider: 'yandex#search'
+            });
+
+            var myPlacemark = createPlacemark(startCoords);
+            myMap.geoObjects.add(myPlacemark);
+
+            myPlacemark.events.add('dragend', function() {
+                getAddress(myPlacemark.geometry.getCoordinates());
+            });
+
+            // Listening for a click on the map
+            myMap.events.add('click', function(e) {
+                var coords = e.get('coords');
+                myPlacemark.geometry.setCoordinates(coords);
+
+                getAddress(coords);
+            });
+
+            // Creating a placemark
+            function createPlacemark(coords) {
+                return new ymaps.Placemark(coords, {}, {
+                    preset: 'islands#violetDotIconWithCaption',
+                    draggable: true
+                });
+            }
+
+            function getAddress(coords) {
+                ymaps.geocode(coords).then(function(res) {
+                    var firstGeoObject = res.geoObjects.get(0);
+                    var addrline = firstGeoObject.getAddressLine();
+                    $('.address-field').val(addrline);
+                });
+            }
+        }
+    </script>
+
+
+    <script>
+        $('.address-field').click(function(e) {
+            $('#map-modal').modal('show');
+        })
+    </script>
+@endpush

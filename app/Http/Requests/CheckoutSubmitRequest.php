@@ -26,9 +26,19 @@ class CheckoutSubmitRequest extends FormRequest
         return [
             'name' => 'required|string',
             'address' => 'required|string',
-            'comment' => 'required|string',
+            'phone' => 'required|string',
             'email' => 'required|string',
-            'phone' => 'required|string'
+            'comment' => 'nullable|string',
+
+            'kv' => 'nullable|integer',
+            'dm' => 'nullable|integer',
+            'pd' => 'nullable|integer',
+            'et' => 'nullable|integer',
+
+            'payway' => 'required|integer',
+            'cardnumber' => 'nullable|string',
+            'expiry' => 'nullable|string',
+            'cvv' => 'nullable|string'
         ];
     }
 }
