@@ -22,7 +22,8 @@
                             </div>
 
                             <div class="col-12">
-                                <x-input name="address" class="address-field" required readonly placeholder="Адрес доставки">
+                                <x-input name="address" class="address-field" required readonly
+                                    placeholder="Адрес доставки">
                                 </x-input>
                             </div>
 
@@ -89,7 +90,8 @@
                                 <div id="card-info" class="d-none">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <x-input name="cardnumber" placeholder="1111 2222 3333 4444">Номер кредитной карты</x-input>
+                                            <x-input name="cardnumber" placeholder="1111 2222 3333 4444">Номер кредитной
+                                                карты</x-input>
                                         </div>
                                     </div>
 
@@ -158,9 +160,9 @@
         type="text/javascript"></script>
 
     <script>
-        ymaps.ready(init);
+        ymaps.ready(initMap);
 
-        function init() {
+        function initMap() {
             var geolocation = ymaps.geolocation;
             var coords;
             geolocation.get({
@@ -175,6 +177,18 @@
 
                 coords = result.geoObjects.get(0).geometry.getCoordinates();
                 initWithCoords(coords);
+
+            }).catch(function() {
+                geolocation.get({
+                    provider: 'browser',
+                    mapStateAutoApply: true
+                }).then(function(result) {
+                    coords = result.geoObjects.get(0).geometry.getCoordinates();
+                    initWithCoords(coords);
+                }).catch(function() {
+                    coords = [37.385534, 55.584227];
+                    initWithCoords(coords);
+                });
             });
         }
 
