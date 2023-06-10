@@ -9,7 +9,15 @@
 
         <h1 class="">Каталог</h1>
 
-        <div class="state"></div>
+        @if ($checkout_status == 'confirmed')
+            <x-modal title="Заказ оформлен" id="exampleModal">
+                <p>Ваш заказ оформлен. По прибытию курьер позвонит на ваш номер телефона при необходимости.</p>
+            </x-modal>
+        @endif
+
+        <div class="state">
+
+        </div>
 
         <div class="accordion accordion-flush d-md-none d-sm-block" id="accordionFlushExample">
             <div class="accordion-item">
@@ -65,7 +73,8 @@
                     @foreach ($products as $product)
                         <div class="col-xl-3 col-md-4 col-6">
                             <x-product-card modal_id="modal_{{ $loop->index }}" :product="$product">
-                                <x-form route="bucket.add" class="ajax-form-basket-append" method="POST" product_id="{{ $product->id }}">
+                                <x-form route="bucket.add" class="ajax-form-basket-append" method="POST"
+                                    product_id="{{ $product->id }}">
                                     <input type="hidden" name="id", value="{{ $product->id }}">
                                     <x-submit class="btn-light w-100">В корзину</x-submit>
                                 </x-form>
@@ -96,3 +105,14 @@
 
     </div>
 @endsection
+
+
+@push('scripts')
+    @if ($checkout_status == 'confirmed')
+        <script>
+            $(document).ready(function() {
+                $("#exampleModal").modal('show');
+            });
+        </script>
+    @endif
+@endpush

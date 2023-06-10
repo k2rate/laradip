@@ -1,4 +1,4 @@
-@props(['modal_id', 'img_height' => '210px', 'controls'])
+@props(['modal_id', 'img_height' => '210px'])
 
 
 

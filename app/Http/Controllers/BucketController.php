@@ -39,15 +39,14 @@ class BucketController extends Controller
 
         if ($bucket_product_count) {
             foreach ($bucket as $key => $obj) {
-                if($obj['id'] == $product_id) {
+                if ($obj['id'] == $product_id) {
                     $bucket[$key]['count']++;
                     break;
                 }
             }
 
             session(compact('bucket'));
-        }
-        else {
+        } else {
 
             $basket_product = ['id' => $product->id, 'count' => 1];
             array_push($bucket, $basket_product);
@@ -62,8 +61,8 @@ class BucketController extends Controller
             return response()->json(['error' => 'success', 'callback_id' => $callback_id, 'html' => $html]);
         }
 
-        
-        
+
+
         // return back();
 
         return response()->json(['error' => 'success']);
@@ -77,11 +76,10 @@ class BucketController extends Controller
         $product = Product::find($product_id);
 
         $bucket = session('bucket', null);
-        if ($bucket == null)
-        {
+        if ($bucket == null) {
             // return back();
             return response()->json(['error' => 'Ваша корзина пуста']);
-        }          
+        }
 
         $removed = false;
         foreach ($bucket as $key => $obj) {
@@ -91,7 +89,7 @@ class BucketController extends Controller
                 if ($bucket[$key]['count'] <= 0) {
                     unset($bucket[$key]);
                 }
-                
+
                 $removed = true;
                 break;
             }
@@ -106,6 +104,13 @@ class BucketController extends Controller
     public function checkout()
     {
         $bucket = session('bucket', []);
+        
+        if (count($bucket) == 0)
+        {
+            session(['error' => 'Ваша корзина пуста']);
+            return back();
+        }          
+
         foreach ($bucket as $key => $obj) {
             $bucket[$key]['object'] = Product::find($bucket[$key]['id']);
         }
@@ -115,17 +120,14 @@ class BucketController extends Controller
             $summary += $obj['object']->cost * $obj['count'];
         }
 
-        $status = session('checkout', 'ready');
-        session(['checkout' => 'ready']);
-
-        return view('checkout', compact('bucket', 'summary', 'status'));
+        return view('checkout', compact('bucket', 'summary'));
         // return back();
     }
 
     public function checkoutSubmit(CheckoutSubmitRequest $req)
     {
         $data = $req->validated();
-  
+
         $bucket = session('bucket', []);
         $jsbucket = json_encode($bucket);
 
@@ -133,16 +135,11 @@ class BucketController extends Controller
         $data['bucket'] = $jsbucket;
 
         Checkout::firstOrCreate($data);
-        
+
         session(['checkout' => 'confirmed']);
         session(['bucket' => []]);
 
-        return back();
-    }
-
-    public function checkoutInfo($id)
-    {
-
+        return redirect('catalog');
     }
 
     public function index()

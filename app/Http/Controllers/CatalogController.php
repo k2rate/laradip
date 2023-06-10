@@ -28,8 +28,11 @@ class CatalogController extends Controller
         $products = $query->get();
         $categories = Category::all();
 
+        $checkout_status = session('checkout', 'ready');
+        session(['checkout' => 'ready']);
+
         // return htmlspecialchars(view('includes.basket', ['product' => $products[0]])->render());
 
-        return view('catalog', compact('products', 'categories', 'category_id', 'sort_type', 'order'));
+        return view('catalog', compact('products', 'categories', 'category_id', 'sort_type', 'order', 'checkout_status'));
     }
 }

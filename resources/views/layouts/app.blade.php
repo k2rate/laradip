@@ -29,6 +29,18 @@
         @include('includes.header')
 
         <main class="py-4">
+
+            @if (session('error', false))
+                <div class="container">
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('error') }}
+                    </div>
+                </div>
+
+
+                @php(session(['error' => false]))
+            @endif
+
             @yield('content')
         </main>
 

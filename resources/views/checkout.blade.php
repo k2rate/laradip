@@ -3,11 +3,7 @@
 @section('content')
     <div class="container">
 
-        @if ($status == 'confirmed')
-            <x-modal title="Заказ оформлен" id="exampleModal">
-                <p>Ваш заказ оформлен. По прибытию курьер позвонит на ваш номер телефона при необходимости.</p>
-            </x-modal>
-        @endif
+
 
 
         <x-form route="bucket.checkoutSubmit" method="POST">
@@ -48,7 +44,7 @@
                             </div>
 
                             <div class="col-md-6">
-                                <x-input name="email" placeholder="Эл. Почта"></x-input>
+                                <x-input name="email" required placeholder="Эл. Почта"></x-input>
                             </div>
 
                             <div class="col-md-6">
@@ -133,19 +129,8 @@
 
 
 @push('scripts')
-    @if ($status == 'confirmed')
-        <script>
-            $(document).ready(function() {
-                $("#exampleModal").modal('show');
-            });
-        </script>
-    @endif
-
-
     <script>
-        document.getElementById("payway").onchange = changeListener;
-
-        function changeListener() {
+        $("#payway").change(function() {
             var value = this.selectedIndex;
 
             if (value == 0) {
@@ -153,7 +138,7 @@
             } else if (value == 1) {
                 $('#card-info').removeClass('d-none');
             }
-        }
+        });
     </script>
 
     <script src="https://enterprise.api-maps.yandex.ru/2.1/?lang=ru&apikey=c0d403ab-e5be-4049-908c-8122a58acf23"
