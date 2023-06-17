@@ -24,6 +24,7 @@ Route::get('/about',  [App\Http\Controllers\AboutController::class, 'index'])->n
 Route::get('/catalog', [App\Http\Controllers\CatalogController::class, 'index'])->name('catalog');
 
 Route::view('/where', 'where')->name('where');
+Route::view('/terms', 'terms')->name('terms');
 
 Route::get('/product/{product_id}/', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
 

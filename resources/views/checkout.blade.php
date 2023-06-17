@@ -104,8 +104,20 @@
                             </div>
 
                             <div class="col-12">
-                                <x-submit class="btn-success">Оформить заказ</x-submit>
+
+                                <span class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" value="" id="check-rules">
+                                    <label class="form-check-label" for="check-rules">
+                                        Подтверждаю согласие с <a href="{{ route('terms') }}">Пользовательским соглашением</a>
+                                    </label>
+                                </span>
+
+                                
+
+                                <x-submit id="check-button" class="btn-success" disabled>Оформить заказ</x-submit>
                                 <span class="fw-bold ps-3 fs-5">{{ $summary }} ₽</span>
+
+
                             </div>
 
                         </div>
@@ -223,5 +235,15 @@
         $('.address-field').click(function(e) {
             $('#map-modal').modal('show');
         })
+    </script>
+
+    <script>
+        $('#check-rules').change(function() {
+            if (this.checked) {
+                $('#check-button').attr('disabled', null);
+            } else {
+                $('#check-button').attr('disabled', '');
+            }
+        });
     </script>
 @endpush

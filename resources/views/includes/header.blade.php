@@ -24,8 +24,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('where') }}">Контакты</a>
                 </li>
-
-
             </ul>
 
             <ul class="navbar-nav ms-auto">
@@ -41,7 +39,7 @@
                         <div class="btn btn-success position-relative">
                             <img src="{{ asset('img/basket.png') }}" style="height: 21px;" alt="">
                             <span class="p-1">Корзина</span>
-                            
+
                             <span id="basket-count"
                                 class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-success">
                                 {{ $productsInBucketCount }}
