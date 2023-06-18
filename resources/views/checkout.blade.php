@@ -139,7 +139,6 @@
     </div>
 @endsection
 
-
 @push('scripts')
     <script>
         $("#payway").change(function() {
