@@ -134,7 +134,7 @@ class BucketController extends Controller
         $bucket = session('bucket', []);
         $data['bucket'] = $jsbucket;
 
-        Checkout::firstOrCreate($data);
+        Checkout::create($data);
 
         session(['checkout' => 'confirmed']);
         session(['bucket' => []]);

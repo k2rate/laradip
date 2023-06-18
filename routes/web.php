@@ -2,17 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     return redirect()->to('/catalog');
 });
@@ -35,8 +24,6 @@ Route::post('/checkoutSubmit', [App\Http\Controllers\BucketController::class, 'c
 Route::get('/checkout', [App\Http\Controllers\BucketController::class, 'checkout'])->name('bucket.checkout');
 Route::get('/bucket', [App\Http\Controllers\BucketController::class, 'index'])->name('bucket');
 
-// Route::get('/admin/logout', [App\Http\Controllers\Admin\LoginController::class, 'logout'])->name('admin.logout');
-
 Route::get('/admin', [App\Http\Controllers\Admin\LoginController::class, 'index'])->name('admin');
 Route::post('/admin/login', [App\Http\Controllers\Admin\LoginController::class, 'login'])->name('admin.login');
 
@@ -53,10 +40,3 @@ Route::middleware([App\Http\Middleware\Admin\Check::class])->group(function () {
     Route::post('/admin/deleteCategory', [App\Http\Controllers\Admin\PanelController::class, 'deleteCategory'])->name('admin.deleteCategory');
     Route::post('/admin/finishCheckout', [App\Http\Controllers\Admin\PanelController::class, 'finishCheckout'])->name('admin.finishCheckout');
 });
-
-
-/*
-Route::get('/home', function () {
-return view('main');
-})->name('home');
-*/

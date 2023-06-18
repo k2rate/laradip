@@ -17,9 +17,12 @@ class CatalogController extends Controller
         if ($order == null)
             $order = 'asc';
 
+        if ($category_id == 0)
+            $category_id = null;
+
         $query = Product::query();
 
-        if ($category_id != null && $category_id != 0) 
+        if ($category_id != null)
             $query = $query->where('category_id', $category_id);
 
         if ($sort_type == 'cost' || $sort_type == 'name')

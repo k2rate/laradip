@@ -23,6 +23,11 @@ jQuery(document).ready(function ($) {
         let productId = $(this).attr("product_id");
         let counterSelector = '.product-count-' + productId;
 
+        $.ajax({
+            type: "POST",
+            url: $(this).attr("action"),
+            data: $(this).serialize()});
+
         const str = $(this).serialize();
         $.ajax({
             type: "POST",
